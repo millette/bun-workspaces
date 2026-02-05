@@ -25,23 +25,21 @@ export interface JSONObject {
   [key: string]: JSONData;
 }
 
-type JSONArrayItem =
-  | JSONObject
-  | JSONPrimitive
-  | JSONObject[]
-  | JSONPrimitive[]
-  | JSONObject[][]
-  | JSONPrimitive[][]
-  | JSONObject[][][]
-  | JSONPrimitive[][][]
-  | JSONObject[][][][]
-  | JSONPrimitive[][][][]
-  | JSONObject[][][][][]
-  | JSONPrimitive[][][][][]
-  | JSONObject[][][][][][]
-  | JSONPrimitive[][][][][][]
-  | JSONObject[][][][][][][]
-  | JSONPrimitive[][][][][][][];
+export type JSONItem = JSONPrimitive | JSONObject;
+
+export type JSONArrayItem =
+  | JSONItem
+  | JSONItem[]
+  | JSONItem[][]
+  | JSONItem[][][]
+  | JSONItem[][][][]
+  | JSONItem[][][][][]
+  | JSONItem[][][][][][]
+  | JSONItem[][][][][][][]
+  | JSONItem[][][][][][][][]
+  | JSONItem[][][][][][][][][]
+  | JSONItem[][][][][][][][][][]
+  | JSONItem[][][][][][][][][][][];
 
 export type JSONArray<Item extends JSONArrayItem = JSONArrayItem> = Item[];
 
