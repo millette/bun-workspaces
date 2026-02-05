@@ -146,7 +146,11 @@ class _FileSystemProject extends ProjectBase implements Project {
 
     this.config = {
       root: rootConfig,
-      workspaces: workspaceConfigMap,
+      workspaces: Object.fromEntries(
+        Object.entries(workspaceConfigMap)
+          .map(([name, { config }]) => [name, config])
+          .filter(([_, config]) => config !== undefined),
+      ),
     };
 
     if (!options.name) {

@@ -31,7 +31,7 @@ bw run lint --args="--my-arg=<workspaceName>" # Use the workspace name in args
 
 bw run "bun build" --inline --inline-name=build # Run an inline command
 
-bw run lint --parallel # Run in parallel (default is "auto")
+bw run lint --parallel # Run in parallel (default is "auto", the number of available CPUs)
 bw run lint --parallel=2 # Run in parallel with a max of 2 concurrent scripts
 
 # Show usage (you can pass --help to any command)

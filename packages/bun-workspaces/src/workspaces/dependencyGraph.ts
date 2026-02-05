@@ -12,8 +12,11 @@ export type WorkspaceMap = {
 
 export const resolveWorkspaceDependencies = (
   workspaceMap: WorkspaceMap,
+  includeRootWorkspace: boolean,
 ): Workspace[] => {
-  const workspacePackages = Object.values(workspaceMap);
+  const workspacePackages = Object.values(workspaceMap).filter(
+    ({ workspace }) => !includeRootWorkspace && !workspace.isRoot,
+  );
 
   const workspacesWithDependencies = workspacePackages.map(
     ({ workspace, packageJson }) => {

@@ -177,7 +177,9 @@ export const findWorkspaces = ({
     throw new WORKSPACE_ERRORS.RootWorkspaceNotFound("No root workspace found");
   }
 
-  workspaces = sortWorkspaces(resolveWorkspaceDependencies(workspaceMap));
+  workspaces = sortWorkspaces(
+    resolveWorkspaceDependencies(workspaceMap, includeRootWorkspace),
+  );
 
   validateWorkspaceAliases(workspaces, workspaceAliases, rootWorkspace.name);
 
