@@ -57,8 +57,8 @@ bw run "bun run build" --inline
 
 export const CLI_PARALLEL_SCRIPTS_EXAMPLE = `
 # Run in parallel (default is "auto" or value of 
-the root ${ENV_VARS_METADATA.parallelMaxDefault.rootConfigDefaultsKey} 
-or process.env.${ENV_VARS_METADATA.parallelMaxDefault.envVarName})
+# the root ${ENV_VARS_METADATA.parallelMaxDefault.rootConfigDefaultsKey} 
+# or process.env.${ENV_VARS_METADATA.parallelMaxDefault.envVarName})
 bw run my-script --parallel
 
 # Same as the above command
