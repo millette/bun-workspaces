@@ -1,9 +1,6 @@
 {
-  "name": "a-depends-e",
+  "name": "b-depends-a",
   "dependencies": {
-    "d": "workspace:*"
-  },
-  "optionalDependencies": {
-    "c": "workspace:*"
+    "a-depends-c": "workspace:*"
   }
 }

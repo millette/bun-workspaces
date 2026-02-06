@@ -98,7 +98,7 @@ export const findWorkspaces = ({
     if (bunLock instanceof BUN_LOCK_ERRORS.BunLockNotFound) {
       bunLock.message =
         `No bun.lock found at ${rootDirectory}. Check that this is the directory of your project and that you've ran 'bun install'.` +
-        "If you have ran 'bun install', you may simply have no workspaces or dependencies in your project.";
+        " If you have ran 'bun install', you may simply have no workspaces or dependencies in your project.";
     }
     throw bunLock;
   }

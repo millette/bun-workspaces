@@ -1,3 +1,64 @@
 import { describe, test, expect } from "bun:test";
+import { findWorkspaces } from "../src/workspaces";
+import { getProjectRoot } from "./testProjects";
 
-describe("Test dependency graph", () => {});
+describe("Test dependency graph", () => {
+  test("findWorkspaces has expected dependsOn and dependents", () => {
+    const { workspaces } = findWorkspaces({
+      rootDirectory: getProjectRoot("withDependenciesSimple"),
+    });
+
+    expect(workspaces).toEqual([
+      {
+        name: "a-depends-e",
+        isRoot: false,
+        path: "packages/a-depends-e",
+        matchPattern: "packages/*",
+        scripts: [],
+        aliases: [],
+        dependsOn: ["e"],
+        dependents: [],
+      },
+      {
+        name: "b-depends-cd",
+        isRoot: false,
+        path: "packages/b-depends-cd",
+        matchPattern: "packages/*",
+        scripts: [],
+        aliases: [],
+        dependsOn: ["c-depends-e", "d-depends-e"],
+        dependents: [],
+      },
+      {
+        name: "c-depends-e",
+        isRoot: false,
+        path: "packages/c-depends-e",
+        matchPattern: "packages/*",
+        scripts: [],
+        aliases: [],
+        dependsOn: ["e"],
+        dependents: ["b-depends-cd"],
+      },
+      {
+        name: "d-depends-e",
+        isRoot: false,
+        path: "packages/d-depends-e",
+        matchPattern: "packages/*",
+        scripts: [],
+        aliases: [],
+        dependsOn: ["e"],
+        dependents: ["b-depends-cd"],
+      },
+      {
+        name: "e",
+        isRoot: false,
+        path: "packages/e",
+        matchPattern: "packages/*",
+        scripts: [],
+        aliases: [],
+        dependsOn: [],
+        dependents: ["a-depends-e", "c-depends-e", "d-depends-e"],
+      },
+    ]);
+  });
+});
