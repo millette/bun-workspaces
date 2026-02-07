@@ -18,7 +18,7 @@ for (const file of new Glob("**/*/package.json").scanSync({
   promises.push(
     (async () => {
       try {
-        await runScript({
+        const result = await runScript({
           env: {},
           metadata: {},
           scriptCommand: {
@@ -27,6 +27,9 @@ for (const file of new Glob("**/*/package.json").scanSync({
           },
           shell: "bun",
         }).exit;
+        if (result.exitCode !== 0) {
+          throw new Error(`Failed to install dependencies for ${file}`);
+        }
       } catch (error) {
         // eslint-disable-next-line no-console
         console.error(`Error installing dependencies for ${file}:`, error);

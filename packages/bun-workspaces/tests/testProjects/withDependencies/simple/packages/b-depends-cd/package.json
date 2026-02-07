@@ -1,0 +1,9 @@
+{
+  "name": "b-depends-cd",
+  "dependencies": {
+    "d-depends-e": "workspace:*"
+  },
+  "optionalDependencies": {
+    "c-depends-e": "workspace:*"
+  }
+}

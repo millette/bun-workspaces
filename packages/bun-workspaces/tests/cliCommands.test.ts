@@ -63,6 +63,8 @@ library-1b`,
           path: withWindowsPath("applications/applicationA"),
           scripts: ["a-workspaces", "all-workspaces", "application-a"],
           aliases: ["deprecated_appA"],
+          dependencies: [],
+          dependents: [],
         },
         {
           name: "application-1b",
@@ -71,6 +73,8 @@ library-1b`,
           path: withWindowsPath("applications/applicationB"),
           scripts: ["all-workspaces", "application-b", "b-workspaces"],
           aliases: ["deprecated_appB"],
+          dependencies: [],
+          dependents: [],
         },
         {
           name: "library-1a",
@@ -79,6 +83,8 @@ library-1b`,
           path: withWindowsPath("libraries/libraryA"),
           scripts: ["a-workspaces", "all-workspaces", "library-a"],
           aliases: ["deprecated_libA"],
+          dependencies: [],
+          dependents: [],
         },
         {
           name: "library-1b",
@@ -87,6 +93,8 @@ library-1b`,
           path: withWindowsPath("libraries/libraryB"),
           scripts: ["all-workspaces", "b-workspaces", "library-b"],
           aliases: ["deprecated_libB"],
+          dependencies: [],
+          dependents: [],
         },
       ];
 
@@ -159,7 +167,7 @@ library-1b`,
       expect(emptyWorkspacesResult.exitCode).toBe(1);
       assertOutputMatches(
         emptyWorkspacesResult.stderr.sanitizedCompactLines,
-        `No bun.lock found at ${withWindowsPath(getProjectRoot("emptyWorkspaces"))}. Check that this is the directory of your project and that you've ran 'bun install'.` +
+        `No bun.lock found at ${withWindowsPath(getProjectRoot("emptyWorkspaces"))}. Check that this is the directory of your project and that you've ran 'bun install'. ` +
           "If you have ran 'bun install', you may simply have no workspaces or dependencies in your project.",
       );
 
@@ -381,7 +389,7 @@ Script: library-b
       expect(emptyWorkspacesResult.exitCode).toBe(1);
       assertOutputMatches(
         emptyWorkspacesResult.stderr.sanitizedCompactLines,
-        `No bun.lock found at ${withWindowsPath(getProjectRoot("emptyWorkspaces"))}. Check that this is the directory of your project and that you've ran 'bun install'.` +
+        `No bun.lock found at ${withWindowsPath(getProjectRoot("emptyWorkspaces"))}. Check that this is the directory of your project and that you've ran 'bun install'. ` +
           "If you have ran 'bun install', you may simply have no workspaces or dependencies in your project.",
       );
 
@@ -425,6 +433,8 @@ Script: library-b
           path: withWindowsPath("applications/applicationA"),
           scripts: ["a-workspaces", "all-workspaces", "application-a"],
           aliases: ["deprecated_appA"],
+          dependencies: [],
+          dependents: [],
         }),
       );
 
@@ -440,6 +450,8 @@ Script: library-b
           path: withWindowsPath("applications/applicationA"),
           scripts: ["a-workspaces", "all-workspaces", "application-a"],
           aliases: ["deprecated_appA"],
+          dependencies: [],
+          dependents: [],
         }),
       );
 
@@ -461,6 +473,8 @@ Script: library-b
             path: withWindowsPath("applications/applicationA"),
             scripts: ["a-workspaces", "all-workspaces", "application-a"],
             aliases: ["deprecated_appA"],
+            dependencies: [],
+            dependents: [],
           },
           null,
           2,
@@ -485,6 +499,8 @@ Script: library-b
             path: withWindowsPath("applications/applicationA"),
             scripts: ["a-workspaces", "all-workspaces", "application-a"],
             aliases: ["deprecated_appA"],
+            dependencies: [],
+            dependents: [],
           },
           null,
           2,
@@ -713,7 +729,8 @@ Script: library-b
     expect(result.exitCode).toBe(1);
     assertOutputMatches(
       result.stderr.sanitizedCompactLines,
-      `No bun.lock found at ${withWindowsPath(getProjectRoot("invalidBadJson"))}. Check that this is the directory of your project and that you've ran 'bun install'.If you have ran 'bun install', you may simply have no workspaces or dependencies in your project.`,
+      `No bun.lock found at ${withWindowsPath(getProjectRoot("invalidBadJson"))}. Check that this is the directory of your project and that you've ran 'bun install'. ` +
+        "If you have ran 'bun install', you may simply have no workspaces or dependencies in your project.",
     );
   });
 });

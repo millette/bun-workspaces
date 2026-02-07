@@ -1,0 +1,6 @@
+{
+  "name": "c-depends-a",
+  "devDependencies": {
+    "a-depends-b": "workspace:*"
+  }
+}

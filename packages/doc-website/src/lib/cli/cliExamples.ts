@@ -31,7 +31,7 @@ bw run lint --args="--my-arg=<workspaceName>" # Use the workspace name in args
 
 bw run "bun build" --inline --inline-name=build # Run an inline command
 
-bw run lint --parallel # Run in parallel (default is "auto")
+bw run lint --parallel # Run in parallel (default is "auto", the number of available CPUs)
 bw run lint --parallel=2 # Run in parallel with a max of 2 concurrent scripts
 
 # Show usage (you can pass --help to any command)
@@ -57,8 +57,8 @@ bw run "bun run build" --inline
 
 export const CLI_PARALLEL_SCRIPTS_EXAMPLE = `
 # Run in parallel (default is "auto" or value of 
-the root ${ENV_VARS_METADATA.parallelMaxDefault.rootConfigDefaultsKey} 
-or process.env.${ENV_VARS_METADATA.parallelMaxDefault.envVarName})
+# the root ${ENV_VARS_METADATA.parallelMaxDefault.rootConfigDefaultsKey} 
+# or process.env.${ENV_VARS_METADATA.parallelMaxDefault.envVarName})
 bw run my-script --parallel
 
 # Same as the above command

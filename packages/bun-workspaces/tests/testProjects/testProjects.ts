@@ -55,6 +55,9 @@ const TEST_PROJECTS = {
   withCatalogSimple: "withCatalog/simple",
   withRootWorkspace: "withRootWorkspace/simple",
   withRootWorkspaceWithConfigFiles: "withRootWorkspace/withConfigFiles",
+  withDependenciesSimple: "withDependencies/simple",
+  withDependenciesDirectCycle: "withDependencies/withDirectCycle",
+  withDependenciesIndirectCycle: "withDependencies/withIndirectCycle",
 };
 
 export type TestProjectName = keyof typeof TEST_PROJECTS;

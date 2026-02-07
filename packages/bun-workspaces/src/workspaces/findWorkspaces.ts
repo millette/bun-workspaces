@@ -9,6 +9,10 @@ import {
 } from "../config";
 import { BUN_LOCK_ERRORS, readBunLockfile } from "../internal/bun";
 import { BunWorkspacesError } from "../internal/core";
+import {
+  resolveWorkspaceDependencies,
+  type WorkspaceMap,
+} from "./dependencyGraph/resolveDependencies";
 import { WORKSPACE_ERRORS } from "./errors";
 import {
   resolvePackageJsonContent,
@@ -86,7 +90,7 @@ export const findWorkspaces = ({
 
   let workspaces: Workspace[] = [];
 
-  const workspaceConfigMap: Record<string, ResolvedWorkspaceConfig> = {};
+  const workspaceMap: WorkspaceMap = {};
 
   const bunLock = readBunLockfile(rootDirectory);
 
@@ -94,7 +98,7 @@ export const findWorkspaces = ({
     if (bunLock instanceof BUN_LOCK_ERRORS.BunLockNotFound) {
       bunLock.message =
         `No bun.lock found at ${rootDirectory}. Check that this is the directory of your project and that you've ran 'bun install'.` +
-        "If you have ran 'bun install', you may simply have no workspaces or dependencies in your project.";
+        " If you have ran 'bun install', you may simply have no workspaces or dependencies in your project.";
     }
     throw bunLock;
   }
@@ -124,6 +128,7 @@ export const findWorkspaces = ({
           workspaceAliases[alias] = packageJsonContent.name;
         }
       }
+
       const relativePath = path.relative(
         rootDirectory,
         path.dirname(packageJsonPath),
@@ -147,6 +152,8 @@ export const findWorkspaces = ({
               .concat(workspaceConfig?.aliases ?? []),
           ),
         ],
+        dependencies: [],
+        dependents: [],
       };
 
       if (workspace.isRoot) {
@@ -157,8 +164,11 @@ export const findWorkspaces = ({
         if (!workspace.isRoot || includeRootWorkspace) {
           workspaces.push(workspace);
         }
-        workspaceConfigMap[workspace.name] =
-          workspaceConfig ?? createDefaultWorkspaceConfig();
+        workspaceMap[workspace.name] = {
+          workspace,
+          config: workspaceConfig ?? createDefaultWorkspaceConfig(),
+          packageJson: packageJsonContent,
+        };
       }
     }
   }
@@ -167,11 +177,13 @@ export const findWorkspaces = ({
     throw new WORKSPACE_ERRORS.RootWorkspaceNotFound("No root workspace found");
   }
 
-  workspaces = sortWorkspaces(workspaces);
+  workspaces = sortWorkspaces(
+    resolveWorkspaceDependencies(workspaceMap, includeRootWorkspace),
+  );
 
   validateWorkspaceAliases(workspaces, workspaceAliases, rootWorkspace.name);
 
-  return { workspaces, workspaceConfigMap, rootWorkspace };
+  return { workspaces, workspaceMap, rootWorkspace };
 };
 
 export const validateWorkspaceAliases = (

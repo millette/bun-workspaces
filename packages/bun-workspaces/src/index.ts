@@ -21,6 +21,7 @@ export {
 export {
   type OutputChunk,
   type OutputStreamName,
+  type DecodeOptions,
   type PercentageValue,
   type ParallelMaxValue,
   type WorkspaceScriptCommandMethod,

@@ -28,6 +28,8 @@ describe("Test Project utilities", () => {
         path: withWindowsPath("applications/applicationA"),
         scripts: ["a-workspaces", "all-workspaces", "application-a"],
         aliases: [],
+        dependencies: [],
+        dependents: [],
       },
       {
         name: "application-b",
@@ -36,6 +38,8 @@ describe("Test Project utilities", () => {
         path: withWindowsPath("applications/applicationB"),
         scripts: ["all-workspaces", "application-b", "b-workspaces"],
         aliases: [],
+        dependencies: [],
+        dependents: [],
       },
       {
         name: "library-a",
@@ -44,6 +48,8 @@ describe("Test Project utilities", () => {
         path: withWindowsPath("libraries/libraryA"),
         scripts: ["a-workspaces", "all-workspaces", "library-a"],
         aliases: [],
+        dependencies: [],
+        dependents: [],
       },
       {
         name: "library-b",
@@ -52,6 +58,8 @@ describe("Test Project utilities", () => {
         path: withWindowsPath("libraries/libraryB"),
         scripts: ["all-workspaces", "b-workspaces", "library-b"],
         aliases: [],
+        dependencies: [],
+        dependents: [],
       },
       {
         name: "library-c",
@@ -60,6 +68,8 @@ describe("Test Project utilities", () => {
         path: withWindowsPath("libraries/nested/libraryC"),
         scripts: ["all-workspaces", "c-workspaces", "library-c"],
         aliases: [],
+        dependencies: [],
+        dependents: [],
       },
     ]);
   });
@@ -180,6 +190,8 @@ describe("Test Project utilities", () => {
         path: withWindowsPath("applications/applicationA"),
         scripts: ["a-workspaces", "all-workspaces", "application-a"],
         aliases: [],
+        dependencies: [],
+        dependents: [],
       },
       {
         name: "application-b",
@@ -188,6 +200,8 @@ describe("Test Project utilities", () => {
         path: withWindowsPath("applications/applicationB"),
         scripts: ["all-workspaces", "application-b", "b-workspaces"],
         aliases: [],
+        dependencies: [],
+        dependents: [],
       },
       {
         name: "library-a",
@@ -196,6 +210,8 @@ describe("Test Project utilities", () => {
         path: withWindowsPath("libraries/libraryA"),
         scripts: ["a-workspaces", "all-workspaces", "library-a"],
         aliases: [],
+        dependencies: [],
+        dependents: [],
       },
       {
         name: "library-b",
@@ -204,6 +220,8 @@ describe("Test Project utilities", () => {
         path: withWindowsPath("libraries/libraryB"),
         scripts: ["all-workspaces", "b-workspaces", "library-b"],
         aliases: [],
+        dependencies: [],
+        dependents: [],
       },
       {
         name: "library-c",
@@ -212,6 +230,8 @@ describe("Test Project utilities", () => {
         path: withWindowsPath("libraries/nested/libraryC"),
         scripts: ["all-workspaces", "c-workspaces", "library-c"],
         aliases: [],
+        dependencies: [],
+        dependents: [],
       },
     ]);
 
@@ -341,6 +361,8 @@ describe("Test Project utilities", () => {
         path: withWindowsPath("applications/applicationA"),
         scripts: ["a-workspaces", "all-workspaces", "application-a"],
         aliases: [],
+        dependencies: [],
+        dependents: [],
       },
     });
 
@@ -367,6 +389,8 @@ describe("Test Project utilities", () => {
         path: withWindowsPath("applications/applicationA"),
         scripts: ["a-workspaces", "all-workspaces", "application-a"],
         aliases: [],
+        dependencies: [],
+        dependents: [],
       },
     });
 
@@ -390,6 +414,8 @@ describe("Test Project utilities", () => {
         path: withWindowsPath("applications/applicationA"),
         scripts: ["a-workspaces", "all-workspaces", "application-a"],
         aliases: [],
+        dependencies: [],
+        dependents: [],
       },
     });
 
@@ -413,6 +439,8 @@ describe("Test Project utilities", () => {
         path: withWindowsPath("applications/applicationA"),
         scripts: ["a-workspaces", "all-workspaces", "application-a"],
         aliases: [],
+        dependencies: [],
+        dependents: [],
       },
     });
 
@@ -439,6 +467,8 @@ describe("Test Project utilities", () => {
         path: withWindowsPath("libraries/libraryB"),
         scripts: ["all-workspaces", "b-workspaces", "library-b"],
         aliases: [],
+        dependencies: [],
+        dependents: [],
       },
     });
 
@@ -462,6 +492,8 @@ describe("Test Project utilities", () => {
         path: withWindowsPath("libraries/libraryB"),
         scripts: ["all-workspaces", "b-workspaces", "library-b"],
         aliases: [],
+        dependencies: [],
+        dependents: [],
       },
     });
 
@@ -502,6 +534,8 @@ describe("Test Project utilities", () => {
       matchPattern: "test/*",
       scripts: ["test-script"],
       aliases: [],
+      dependencies: [],
+      dependents: [],
       path: withWindowsPath("test/test-1"),
     };
     const testWs2 = {
@@ -511,6 +545,8 @@ describe("Test Project utilities", () => {
       scripts: ["test-script"],
       aliases: ["test-2-alias"],
       path: withWindowsPath("test/test-2"),
+      dependencies: [],
+      dependents: [],
     };
     const projectWithData = createMemoryProject({
       name: "test-project",
@@ -627,6 +663,8 @@ describe("Test Project utilities", () => {
           path: withWindowsPath("applications/applicationA"),
           scripts: ["a-workspaces", "all-workspaces", "application-a"],
           aliases: [],
+          dependencies: [],
+          dependents: [],
         },
       },
     });
@@ -665,6 +703,8 @@ describe("Test Project utilities", () => {
           path: withWindowsPath("applications/applicationA"),
           scripts: ["a-workspaces", "all-workspaces", "application-a"],
           aliases: [],
+          dependencies: [],
+          dependents: [],
         },
       },
     });
@@ -707,6 +747,8 @@ describe("Test Project utilities", () => {
           path: withWindowsPath("applications/applicationA"),
           scripts: ["test-echo"],
           aliases: [],
+          dependencies: [],
+          dependents: [],
         },
       },
     });
@@ -744,6 +786,8 @@ describe("Test Project utilities", () => {
           path: withWindowsPath("applications/applicationA"),
           scripts: ["test-echo"],
           aliases: [],
+          dependencies: [],
+          dependents: [],
         },
       },
     });
@@ -759,6 +803,8 @@ describe("Test Project utilities", () => {
             matchPattern: "test/*",
             scripts: ["test-script"],
             aliases: [],
+            dependencies: [],
+            dependents: [],
             path: withWindowsPath("test/test-1"),
           },
           {
@@ -767,6 +813,8 @@ describe("Test Project utilities", () => {
             matchPattern: "test/*",
             scripts: ["test-script"],
             aliases: [],
+            dependencies: [],
+            dependents: [],
             path: withWindowsPath("test/test-1"),
           },
         ],
@@ -783,6 +831,8 @@ describe("Test Project utilities", () => {
             scripts: ["test-script"],
             aliases: ["test-1-alias"],
             path: withWindowsPath("test/test-1"),
+            dependencies: [],
+            dependents: [],
           },
           {
             name: "test-2",
@@ -791,6 +841,8 @@ describe("Test Project utilities", () => {
             scripts: ["test-script"],
             aliases: ["test-1-alias"],
             path: withWindowsPath("test/test-2"),
+            dependencies: [],
+            dependents: [],
           },
         ],
       }),

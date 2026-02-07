@@ -38,14 +38,18 @@ class _MemoryProject extends ProjectBase implements Project {
     this.name = options.name ?? "";
     this.rootDirectory = options.rootDirectory ?? "";
     this.workspaces = options.workspaces;
-    this.rootWorkspace = options.rootWorkspace ?? {
-      name: "default-root-workspace",
-      isRoot: true,
-      matchPattern: "",
-      path: "",
-      scripts: [],
-      aliases: [],
-    };
+    this.rootWorkspace =
+      options.rootWorkspace ??
+      ({
+        name: "default-root-workspace",
+        isRoot: true,
+        matchPattern: "",
+        path: "",
+        scripts: [],
+        aliases: [],
+        dependencies: [],
+        dependents: [],
+      } as Workspace);
 
     for (const workspace of this.workspaces) {
       if (
