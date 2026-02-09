@@ -12,9 +12,11 @@
   "scripts": {
     "bw": "bun cli run -N -W bw",
     "bw:test": "bun cli run -N test bw --",
+    "bw:lint": "bun cli run -N lint bw --",
     "bw:build": "bun cli run -N build bw --",
     "bw:build:test": "bun cli run -N build:test bw --",
     "docs": "bun cli run -N -W docs",
+    "docs:lint": "bun cli run -N lint doc-website --",
     "docs:dev": "bun cli run -N dev doc-website --",
     "docs:build": "bun cli run -N build doc-website --",
     "docs:build:dev": "bun cli run -N build:dev doc-website --",
