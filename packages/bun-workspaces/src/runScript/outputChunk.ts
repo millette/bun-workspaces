@@ -2,19 +2,20 @@ import { sanitizeAnsi } from "../internal/core";
 
 export type OutputStreamName = "stdout" | "stderr";
 
+/** @deprecated */
 export interface DecodeOptions {
   /** Whether to strip ANSI escape codes */
   stripAnsi?: boolean;
 }
 
-/** Output captured from a script subprocess */
+/** @deprecated Output captured from a script subprocess */
 export interface OutputChunk {
   /** The source of the output, `"stdout"` or `"stderr"` */
   streamName: OutputStreamName;
   /** Raw output text. Pass `true` to strip ANSI escape codes. */
   decode(options?: DecodeOptions): string;
   /** The raw output content */
-  raw: Uint8Array<ArrayBuffer>;
+  raw: Uint8Array<ArrayBufferLike>;
   /** @deprecated Use `decode()` instead */
   // TODO remove in future major release
   text: string;
@@ -23,10 +24,11 @@ export interface OutputChunk {
   textNoAnsi: string;
 }
 
+/** @deprecated */
 class _OutputChunk implements OutputChunk {
   constructor(
     public readonly streamName: OutputStreamName,
-    public readonly raw: Uint8Array<ArrayBuffer>,
+    public readonly raw: Uint8Array<ArrayBufferLike>,
   ) {}
 
   decode(options?: DecodeOptions): string {
@@ -48,7 +50,8 @@ class _OutputChunk implements OutputChunk {
   }
 }
 
+/** @deprecated */
 export const createOutputChunk = (
   streamName: OutputStreamName,
-  raw: Uint8Array<ArrayBuffer>,
+  raw: Uint8Array<ArrayBufferLike>,
 ): OutputChunk => new _OutputChunk(streamName, raw);

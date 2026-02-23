@@ -1,12 +1,12 @@
 import fs from "fs";
 import path from "path";
-import { logger } from "../../internal/logger";
-import type { ParallelMaxValue, ScriptShellOption } from "../../runScript";
+import { logger } from "../../../internal/logger";
+import type { ParallelMaxValue, ScriptShellOption } from "../../../runScript";
 import {
-  commandOutputLogger,
   handleProjectCommand,
   splitWorkspacePatterns,
-} from "./commandHandlerUtils";
+} from "../commandHandlerUtils";
+import { formatRunScriptOutput } from "./formatRunScriptOutput";
 
 export const runScript = handleProjectCommand(
   "runScript",
@@ -102,15 +102,11 @@ export const runScript = handleProjectCommand(
 
     const handleOutput = async () => {
       if (logger.printLevel === "silent") return;
-      for await (const { outputChunk, scriptMetadata } of output) {
-        commandOutputLogger.logOutput(
-          outputChunk.decode(),
-          "info",
-          process[outputChunk.streamName],
-          options.prefix
-            ? `[${scriptMetadata.workspace.name}:${scriptName}] `
-            : "",
-        );
+      for await (const { line, metadata } of formatRunScriptOutput(output, {
+        prefix: options.prefix,
+        scriptName,
+      })) {
+        process[metadata.streamName].write(line);
       }
     };
 

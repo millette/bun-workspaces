@@ -16,7 +16,9 @@ import {
   type RunScriptsOutput,
   type RunScriptExit,
   type OutputChunk,
+  type OutputStreamName,
 } from "../../runScript";
+import type { MultiProcessOutput } from "../../runScript/output/multiProcessOutput";
 import { checkIsRecursiveScript } from "../../runScript/recursion";
 import {
   resolveScriptShell,
@@ -80,9 +82,16 @@ export type RunWorkspaceScriptExit = Simplify<
   RunScriptExit<RunWorkspaceScriptMetadata>
 >;
 
+// TODO Rename after removal of deprecated form of RunWorkspaceScriptOutput
+export type RunWorkspaceScriptProcessOutput = MultiProcessOutput<
+  RunWorkspaceScriptMetadata & { streamName: OutputStreamName }
+> &
+  /** @deprecated */
+  SimpleAsyncIterable<OutputChunk>;
+
 /** Result of `FileSystemProject.runWorkspaceScript` */
 export type RunWorkspaceScriptResult = {
-  output: SimpleAsyncIterable<OutputChunk>;
+  output: RunWorkspaceScriptProcessOutput;
   exit: Promise<RunWorkspaceScriptExit>;
 };
 
@@ -114,9 +123,16 @@ export type RunScriptAcrossWorkspacesSummary = Simplify<
   RunScriptsSummary<RunWorkspaceScriptMetadata>
 >;
 
+// TODO Rename after removal of deprecated form of RunScriptAcrossWorkspacesOutput
+export type RunScriptAcrossWorkspacesProcessOutput = MultiProcessOutput<
+  RunWorkspaceScriptMetadata & { streamName: OutputStreamName }
+> &
+  /** @deprecated */
+  SimpleAsyncIterable<RunScriptAcrossWorkspacesOutput>;
+
 /** Result of `FileSystemProject.runScriptAcrossWorkspaces` */
 export type RunScriptAcrossWorkspacesResult = {
-  output: SimpleAsyncIterable<RunScriptAcrossWorkspacesOutput>;
+  output: RunScriptAcrossWorkspacesProcessOutput;
   summary: Promise<RunScriptAcrossWorkspacesSummary>;
 };
 
@@ -258,7 +274,22 @@ class _FileSystemProject extends ProjectBase implements Project {
       shell,
     });
 
-    return result;
+    const output = result.processOutput as RunWorkspaceScriptProcessOutput;
+    output[Symbol.asyncIterator] = async function* () {
+      logger.warn(
+        new Error(
+          "Iterating directly over runWorkspaceScript output is deprecated: Use output.bytes() or output.text() instead",
+        ),
+      );
+      for await (const chunk of result.output) {
+        yield chunk;
+      }
+    };
+
+    return {
+      exit: result.exit,
+      output,
+    };
   }
 
   runScriptAcrossWorkspaces(
@@ -385,7 +416,23 @@ class _FileSystemProject extends ProjectBase implements Project {
           : (options.parallel ?? false),
     });
 
-    return result;
+    const output =
+      result.processOutput as RunScriptAcrossWorkspacesProcessOutput;
+    output[Symbol.asyncIterator] = async function* () {
+      logger.warn(
+        new Error(
+          "Iterating directly over runScriptAcrossWorkspaces output is deprecated: Use output.bytes() or output.text() instead",
+        ),
+      );
+      for await (const chunk of result.output) {
+        yield chunk;
+      }
+    };
+
+    return {
+      summary: result.summary,
+      output,
+    };
   }
 
   static #initialized = false;
